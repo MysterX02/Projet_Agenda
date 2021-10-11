@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="Bienvenue sur l'application Agenda !"
+        android:textColor="@color/design_default_color_error"
+        />
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30dp"
+        android:textSize="20dp"
+        android:text= "Emploie du temps"
+        android:textColor="@color/yellow1"
+
+    />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="250dp"
+        android:textSize="20dp"
+        android:text= "Calculer Moyenne"
+        android:textColor="@color/purple_200"
+        />
+
+
+</RelativeLayout>
