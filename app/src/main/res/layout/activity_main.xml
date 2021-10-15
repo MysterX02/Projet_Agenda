@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/back2"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"/>
 
     <TextView
+        android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Bienvenue sur l'application Agenda !"
         android:textColor="@color/design_default_color_error"
         />
+
     <Button
-        android:layout_width="150dp"
+        android:id="@+id/buttonEmp"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_alignTop="@+id/text1"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:layout_alignParentLeft="true"
+        android:text="Emplois du Temps"
         android:layout_marginLeft="30dp"
-        android:textSize="20dp"
-        android:text= "Emploie du temps"
         android:textColor="@color/yellow1"
-
-    />
+        android:textSize="20dp"
+        />
 
     <Button
-        android:layout_width="150dp"
+        android:id="@+id/buttonMoy"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_below="@+id/buttonEmp"
         android:layout_marginTop="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="250dp"
-        android:textSize="20dp"
-        android:text= "Calculer Moyenne"
+        android:layout_marginLeft="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="Calculer sa Moyenne"
         android:textColor="@color/purple_200"
-        />
+        android:textSize="20dp" />
 
 
 </RelativeLayout>
