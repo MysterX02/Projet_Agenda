@@ -14,4 +14,13 @@
     <color name="grey4">#D9626B72</color>
     <color name="blue1">#3976A6</color>
     <color name="yellow1">#D0B15A</color>
+    <!-- Custom color -->
+    <color name="darkBlack">#202122</color>
+    <color name="lightGrey">#989CA0</color>
+    <color name="darkRed">#D72631</color>
+    <color name="darkGreen">#077B8A</color>
+    <color name="darkMauve">#5C3C92</color>
+    <color name="lightGreen">#A2D5C6</color>
+    <color name="lightRed">#F9999F</color>
+    <color name="lightMauve">#CBB3F4</color>
 </resources>

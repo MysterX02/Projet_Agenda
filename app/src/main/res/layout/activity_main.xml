@@ -1,50 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/back2"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"/>
+    android:padding="@dimen/default_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="50dp"
+        app:cardBackgroundColor="@color/lightGrey"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop">
+        </ImageView>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/text1"
-        android:layout_width="match_parent"
+        android:id="@+id/home_page_title"
+        style="@style/SubtitleTextStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="Bienvenue sur l'application Agenda !"
-        android:textColor="@color/design_default_color_error"
-        />
+        android:text="@string/home_page_title"
+        android:layout_marginLeft="@dimen/default_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/cardview"
+        app:layout_constraintStart_toEndOf="@+id/cardview"
+        app:layout_constraintTop_toTopOf="@+id/cardview" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        tools:layout_editor_absoluteX="44dp"
+        tools:ignore="MissingConstraints"></ImageView>
 
     <Button
-        android:id="@+id/buttonEmp"
+        android:id="@+id/button"
+        android:text="@string/btn_agenda"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignTop="@+id/text1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="Emplois du Temps"
-        android:layout_marginLeft="30dp"
-        android:textColor="@color/yellow1"
-        android:textSize="20dp"
-        />
+        android:layout_height="120dp"
+        android:background="@color/lightGreen"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@+id/cardview"
+        tools:layout_editor_absoluteX="44dp"></Button>
 
     <Button
-        android:id="@+id/buttonMoy"
+        android:id="@+id/button2"
+        android:text="@string/btn_devoir"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@+id/buttonEmp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_centerHorizontal="true"
-        android:text="Calculer sa Moyenne"
-        android:textColor="@color/purple_200"
-        android:textSize="20dp" />
+        android:layout_height="120dp"
+        android:background="@color/lightRed"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:layout_editor_absoluteX="44dp"></Button>
 
+    <Button
+        android:id="@+id/button3"
+        android:text="@string/btn_pomodoro"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/lightMauve"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        tools:layout_editor_absoluteX="44dp"></Button>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

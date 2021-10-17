@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Projet_Agenda</string>
+    <!-- Menu -->
+    <string name="home_page_title">Agenda</string>
+    <string name="btn_agenda">Agenda</string>
+    <string name="btn_devoir">Devoir</string>
+    <string name="btn_pomodoro">Pomodoro</string>
+    <!-- Pomodoro -->
+    <string name="pomodoro_page_title">Pomodoro</string>
+    <!-- Devoir -->
+    <string name="devoir_page_title">Devoir</string>
+    <string name="event_page_name">Nom de l\'événement</string>
+    <string name="select_de">De</string>
+    <string name="select_a">A</string>
+    <string name="rappel">Rappels</string>
+    <!-- Calendrier -->
+    <string name="calendar_page_title">Calendrier</string>
 </resources>
