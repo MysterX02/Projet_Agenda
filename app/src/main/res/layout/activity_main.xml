@@ -33,21 +33,16 @@
         app:layout_constraintStart_toEndOf="@+id/cardview"
         app:layout_constraintTop_toTopOf="@+id/cardview" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_plus"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button"
-        tools:layout_editor_absoluteX="44dp"
-        tools:ignore="MissingConstraints"></ImageView>
-
     <Button
         android:id="@+id/button"
         android:text="@string/btn_agenda"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@color/lightGreen"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:drawableLeft="@drawable/ic_plus"
+        android:drawableTint="@color/darkGreen"
+        android:background="@drawable/rounded_corner_agenda"
         android:layout_marginTop="@dimen/default_margin"
         app:layout_constraintTop_toBottomOf="@+id/cardview"
         tools:layout_editor_absoluteX="44dp"></Button>
@@ -57,7 +52,11 @@
         android:text="@string/btn_devoir"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@color/lightRed"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:drawableLeft="@drawable/ic_plus"
+        android:drawableTint="@color/darkRed"
+        android:background="@drawable/rounded_corner_devoir"
         android:layout_marginTop="@dimen/default_margin"
         app:layout_constraintTop_toBottomOf="@+id/button"
         tools:layout_editor_absoluteX="44dp"></Button>
@@ -67,7 +66,11 @@
         android:text="@string/btn_pomodoro"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@color/lightMauve"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:drawableLeft="@drawable/ic_plus"
+        android:drawableTint="@color/darkMauve"
+        android:background="@drawable/rounded_corner_pomodoro"
         android:layout_marginTop="@dimen/default_margin"
         app:layout_constraintTop_toBottomOf="@+id/button2"
         tools:layout_editor_absoluteX="44dp"></Button>
