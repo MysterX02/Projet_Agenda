@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textAgend"
+        android:layout_width="99dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Agenda"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btretour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textAgend"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/rounded_corner_agenda"
+        android:onClick="clickHome"
+        android:text="Home" />
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btretour"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:id="@+id/listPlanning"
+        android:layout_below="@id/calendarView"
+        android:scrollbars="horizontal|vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="250sp"
+        android:layout_centerHorizontal="true">
+
+
+
+    </ListView>
+
+
+</RelativeLayout>
