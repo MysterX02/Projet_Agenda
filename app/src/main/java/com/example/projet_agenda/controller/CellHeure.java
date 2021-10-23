@@ -6,15 +6,19 @@ public class CellHeure {
 
     private String Heure ;
     private String Activity;
+    private String NomProf ;
+    private String SalledeCour;
     private int id;
     private int NbreCelle ;
 
 
     //Constructeur de ma CellHeure
-    public CellHeure(int id,String Activity,String Heure){
+    public CellHeure(int id,String Activity,String Heure,String NomProf,String SalleDeCour){
         this.id = id;
         this.Activity = Activity;
         this.Heure = Heure;
+        this.NomProf =NomProf;
+        this.SalledeCour =SalleDeCour;
     }
 
 
@@ -48,5 +52,21 @@ public class CellHeure {
 
     public void setActivity(String activity) {
         Activity = activity;
+    }
+
+    public String getSalledeCour() {
+        return SalledeCour;
+    }
+
+    public void setSalledeCour(String salledeCour) {
+        SalledeCour = salledeCour;
+    }
+
+    public String getNomProf() {
+        return NomProf;
+    }
+
+    public void setNomProf(String nomProf) {
+        NomProf = nomProf;
     }
 }

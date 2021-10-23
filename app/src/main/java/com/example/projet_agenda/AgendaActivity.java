@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import net.fortuna.ical4j.data.CalendarBuilder;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.projet_agenda.controller.AffPlanning;
@@ -30,13 +32,13 @@ public class AgendaActivity extends AppCompatActivity {
     ListView ListPlanning;
     private AffPlanning AffPlanning;
     CellHeure[] cellHeures;
-
+    Calendar calendar = null;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         context = this;
         intent = getIntent();
-        calendarView = findViewById(R.id.calendarView);
+
 
 
         String ip = "okok";
@@ -49,7 +51,7 @@ public class AgendaActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         CalendarBuilder builder = new CalendarBuilder();
-        Calendar calendar = null;
+
         try {
             calendar = builder.build(is);
         } catch (IOException e) {
@@ -84,7 +86,7 @@ public class AgendaActivity extends AppCompatActivity {
             String Jour = ListDebut[2];
             String Heure = ListDebut[3];
             String Minute = ListDebut[4];
-            //for(int i = 0;i<)
+
 
 
             System.out.println(Jour+" "+Mois+" "+Anne+" A "+Heure+":"+Minute);
@@ -97,16 +99,75 @@ public class AgendaActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
+        calendarView = findViewById(R.id.calendarView);
         ListPlanning = findViewById(R.id.listPlanning);
+        //Lorsque l'utilisateur clique sur une Date
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                boolean Parcours = false;
+                cellHeures = new CellHeure[24];
+                int NbreCoursJour = 0;
+                if (calendar != null) {
+                    //Taille du Calendrier
+                    int TailleCalendrier = calendar.getComponents().size();
+                    //Parcours de tous les cours du Calendrier avoir le nombre de Jour a modifier
+                    for(int i = 0;i<TailleCalendrier;i++) {
+                        String Cour = calendar.getComponents().get(i).toString();
+                        String[] lesMots = Cour.split(System.getProperty("line.separator"));
+                        String Debut = motSeparateur(lesMots[2], ":");
+                        String NomCours = motSeparateur(lesMots[4], ":");
+                        String Fin = motSeparateur(lesMots[3], ":");
+                        String[] ListDebut = jouretHeure(Debut);
+                        String Jour = ListDebut[2];
+
+                        //Si l'utilasteur a appuyer sur un jour ou note le nombre de cour corespondant a ce Jour
+                        if (Integer.parseInt(Jour) == dayOfMonth) {
+                            NbreCoursJour++;
+                        }
+                    }
+                    //Création de la Liste des Cours du jour
+                    String[][] ListeCourJour = new String[NbreCoursJour][];
+                    int CompteurJour=0;
+                    //Ajout dans la Liste des cours du Jour
+                    for(int i = 0;i<TailleCalendrier;i++) {
+                        String Cour = calendar.getComponents().get(i).toString();
+                        String[] lesMots = Cour.split(System.getProperty("line.separator"));
+                        String Debut = motSeparateur(lesMots[2], ":");
+                        String[] ListDebut = jouretHeure(Debut);
+                        String Jour = ListDebut[2];
+
+                        if (Integer.parseInt(Jour) == dayOfMonth) {
+                            ListeCourJour[CompteurJour] = lesMots;
+                            CompteurJour++;
+                        }
+                    }
+                    for (int j=0;j<cellHeures.length;j++){
+                        cellHeures[j]= new CellHeure(j,"Rien",j+" h :","","");
+                    }
+                    CompteurJour=0;
+                    for (int i=0;i<NbreCoursJour;i++) {
+                        String Debut = motSeparateur(ListeCourJour[i][2], ":");
+                        String NomDeCours = motSeparateur(ListeCourJour[i][4], ":");
+                        String NomDeProf = motSeparateur(ListeCourJour[i][6], ":");
+                        String Salle = motSeparateur(ListeCourJour[i][5], ":");
+
+                        String[] ListDebut = jouretHeure(Debut);
+                        String Heure = ListDebut[3];
+                        int HeureChange = Integer.parseInt(Heure)+4;
+                        cellHeures[HeureChange]= new CellHeure(HeureChange,NomDeCours,HeureChange+" h :",NomDeProf,Salle);
+                    }
 
 
-        cellHeures = new CellHeure[24];
-        for (int i=0;i<cellHeures.length;i++){
-            cellHeures[i]= new CellHeure(i,ip,i+" h :");
+                }
+                AffPlanning = new AffPlanning(context,cellHeures);
+                ListPlanning.setAdapter(AffPlanning);
+            }
+        });
 
-        }
-        AffPlanning = new AffPlanning(this,cellHeures);
-        ListPlanning.setAdapter(AffPlanning);
+
+
+
     }
     public void clickHome(View p){
         Intent intent =new Intent(context,MainActivity.class);

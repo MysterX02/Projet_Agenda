@@ -30,9 +30,14 @@ public class AffPlanning extends ArrayAdapter<CellHeure> {
         }
         TextView heure = cellView.findViewById(R.id.heureTv);
         TextView activity = cellView.findViewById(R.id.activityTv);
+        TextView salle = cellView.findViewById(R.id.salleTv);
+        TextView nomProf = cellView.findViewById(R.id.nomProfTv);
+
         CellHeure s = getItem(position);
         heure.setText(s.getHeure());
         activity.setText(s.getActivity());
+        salle.setText(s.getSalledeCour());
+        nomProf.setText(s.getNomProf());
 
         return cellView;
     }

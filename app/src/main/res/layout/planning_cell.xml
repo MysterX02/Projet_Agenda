@@ -3,20 +3,44 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/heureTv"
-        android:layout_width="120sp"
-        android:layout_height="50sp"
-        android:text="Heure : "
-        android:textAlignment="center" />
+        <TextView
+            android:id="@+id/heureTv"
+            android:layout_width="120sp"
+            android:layout_height="50sp"
+            android:text="Heure : "
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/salleTv"
+            android:layout_width="120sp"
+            android:layout_height="50sp"
+            android:text="Salle de Cours : "
+            android:textAlignment="center" />
 
-    <TextView
-        android:id="@+id/activityTv"
-        android:layout_width="120sp"
-        android:layout_height="50sp"
-        android:text="Cours"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/activityTv"
+            android:layout_width="120sp"
+            android:layout_height="50sp"
+            android:text="Cours"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/nomProfTv"
+            android:layout_width="120sp"
+            android:layout_height="50sp"
+            android:text="Nom du Professeur : " />
+
+    </LinearLayout>
 
 
-        android:textAlignment="center" />
 </LinearLayout>
