@@ -1,12 +1,15 @@
 package com.example.projet_agenda.controller;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -32,12 +35,13 @@ public class AffPlanning extends ArrayAdapter<CellHeure> {
         TextView activity = cellView.findViewById(R.id.activityTv);
         TextView salle = cellView.findViewById(R.id.salleTv);
         TextView nomProf = cellView.findViewById(R.id.nomProfTv);
-
+        LinearLayout ly = cellView.findViewById(R.id.back);
         CellHeure s = getItem(position);
         heure.setText(s.getHeure());
         activity.setText(s.getActivity());
         salle.setText(s.getSalledeCour());
         nomProf.setText(s.getNomProf());
+        ly.setBackgroundColor(Color.parseColor(s.getColor()));
 
         return cellView;
     }

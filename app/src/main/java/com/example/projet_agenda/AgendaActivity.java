@@ -16,6 +16,7 @@ import net.fortuna.ical4j.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Month;
 
 
 import androidx.annotation.NonNull;
@@ -105,6 +106,7 @@ public class AgendaActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                month+=1;
                 boolean Parcours = false;
                 cellHeures = new CellHeure[24];
                 int NbreCoursJour = 0;
@@ -120,9 +122,10 @@ public class AgendaActivity extends AppCompatActivity {
                         String Fin = motSeparateur(lesMots[3], ":");
                         String[] ListDebut = jouretHeure(Debut);
                         String Jour = ListDebut[2];
+                        String Mois = ListDebut[1];
 
                         //Si l'utilasteur a appuyer sur un jour ou note le nombre de cour corespondant a ce Jour
-                        if (Integer.parseInt(Jour) == dayOfMonth) {
+                        if (Integer.parseInt(Jour) == dayOfMonth && Integer.parseInt(Mois) == month) {
                             NbreCoursJour++;
                         }
                     }
@@ -135,27 +138,30 @@ public class AgendaActivity extends AppCompatActivity {
                         String[] lesMots = Cour.split(System.getProperty("line.separator"));
                         String Debut = motSeparateur(lesMots[2], ":");
                         String[] ListDebut = jouretHeure(Debut);
-                        String Jour = ListDebut[2];
 
-                        if (Integer.parseInt(Jour) == dayOfMonth) {
+                        String Jour = ListDebut[2];
+                        String Mois = ListDebut[1];
+
+                        if (Integer.parseInt(Jour) == dayOfMonth && Integer.parseInt(Mois) == month) {
                             ListeCourJour[CompteurJour] = lesMots;
                             CompteurJour++;
                         }
                     }
                     for (int j=0;j<cellHeures.length;j++){
-                        cellHeures[j]= new CellHeure(j,"Rien",j+" h :","","");
+                        cellHeures[j]= new CellHeure(j,"Rien",j+" h :","","","#F5F5F5");
                     }
                     CompteurJour=0;
                     for (int i=0;i<NbreCoursJour;i++) {
                         String Debut = motSeparateur(ListeCourJour[i][2], ":");
                         String NomDeCours = motSeparateur(ListeCourJour[i][4], ":");
-                        String NomDeProf = motSeparateur(ListeCourJour[i][6], ":");
+                        String Info = motSeparateur(ListeCourJour[i][6], ":");
                         String Salle = motSeparateur(ListeCourJour[i][5], ":");
+
 
                         String[] ListDebut = jouretHeure(Debut);
                         String Heure = ListDebut[3];
                         int HeureChange = Integer.parseInt(Heure)+4;
-                        cellHeures[HeureChange]= new CellHeure(HeureChange,NomDeCours,HeureChange+" h :",NomDeProf,Salle);
+                        cellHeures[HeureChange]= new CellHeure(HeureChange,NomDeCours,HeureChange+" h :",nomProf(Info),Salle,colorCours(NomDeCours,Info));
                     }
 
 
@@ -186,4 +192,43 @@ public class AgendaActivity extends AppCompatActivity {
         Res[4]=""+MotBase.charAt(11)+MotBase.charAt(12);
         return Res;
     }
+    public String nomProf(String MotBase){
+        String res="";
+        String lines[] = MotBase.split("n");
+        if(lines.length>=3){
+            for (int j = 0;j<lines[3].length()-1;j++){
+                res+=lines[3].charAt(j);
+            }
+        }
+        return res;
+    }
+    public  String colorCours(String Summary,String Info){
+        //Si on a pas de TD ou CM celle ci s'affiche en orange
+        String res = "#E8872C";
+        String linesInfo[] = Info.split("n");
+
+        String linesSum[] = Summary.split("-");
+        if(linesSum.length>=2){
+            if(linesSum[1].charAt(1)=='C' && linesSum[1].charAt(2)=='T'){
+                //Si on a Ct en rouge
+                res = "#F9999F";
+            }
+
+        }
+        else {
+            //ici CM en Bleu et TD en vert
+            if(linesInfo.length>=3){
+                System.out.println(linesInfo[2].charAt(1));
+                if(linesInfo[2].charAt(0)=='C' && linesInfo[2].charAt(1)=='M'){
+                    res="#54C2FF";
+                }
+                if(linesInfo[2].charAt(0)=='T' && linesInfo[2].charAt(1)=='D'){
+                    res="#66CC99";
+                }
+            }
+        }
+
+        return res;
+    }
+
 }
