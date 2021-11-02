@@ -76,7 +76,7 @@ public class AgendaActivity extends AppCompatActivity {
 
             }
             String ListeCours =  "";
-            System.out.println("ok"+calendar.getComponents().size());
+
             String[] lesMots = sytemo.split(System.getProperty("line.separator"));
 
             String Debut = motSeparateur(lesMots[2],":");
@@ -153,15 +153,32 @@ public class AgendaActivity extends AppCompatActivity {
                     CompteurJour=0;
                     for (int i=0;i<NbreCoursJour;i++) {
                         String Debut = motSeparateur(ListeCourJour[i][2], ":");
+                        String Fin = motSeparateur(ListeCourJour[i][3], ":");
                         String NomDeCours = motSeparateur(ListeCourJour[i][4], ":");
                         String Info = motSeparateur(ListeCourJour[i][6], ":");
                         String Salle = motSeparateur(ListeCourJour[i][5], ":");
 
-
                         String[] ListDebut = jouretHeure(Debut);
-                        String Heure = ListDebut[3];
-                        int HeureChange = Integer.parseInt(Heure)+4;
-                        cellHeures[HeureChange]= new CellHeure(HeureChange,NomDeCours,HeureChange+" h :",nomProf(Info),Salle,colorCours(NomDeCours,Info));
+                        String[] ListFin = jouretHeure(Fin);
+                        String HeureD = ListDebut[3];
+                        String MinuteD = ListDebut[4];
+                        String HeureF = ListFin[3];
+                        String MinuteF = ListFin[4];
+                        int HeureDChange = Integer.parseInt(HeureD)+4;
+                        int HeureFChange = Integer.parseInt(HeureF)+4;
+                        cellHeures[HeureDChange]= new CellHeure(HeureDChange,NomDeCours,HeureDChange+"h"+MinuteD+" :",nomProf(Info),Salle,colorCours(NomDeCours,Info));
+                        int NbreHeure = HeureFChange-HeureDChange;
+                        System.out.println(HeureFChange);
+                        for(int j=HeureDChange+1;j<HeureDChange+NbreHeure;j++){
+                            System.out.println(j+" o");
+                            if((HeureDChange+NbreHeure)-1==j){
+                                cellHeures[j]= new CellHeure(j,"",j+"h"+MinuteF+":"," ","" ,colorCours(NomDeCours,Info));
+                            }
+                            else {
+                                cellHeures[j]= new CellHeure(j,"",j+"h:"," ","" ,colorCours(NomDeCours,Info));
+                            }
+                        }
+
                     }
 
 
@@ -218,7 +235,7 @@ public class AgendaActivity extends AppCompatActivity {
         else {
             //ici CM en Bleu et TD en vert
             if(linesInfo.length>=3){
-                System.out.println(linesInfo[2].charAt(1));
+
                 if(linesInfo[2].charAt(0)=='C' && linesInfo[2].charAt(1)=='M'){
                     res="#54C2FF";
                 }
