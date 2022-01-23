@@ -7,16 +7,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.ListView;
 import net.fortuna.ical4j.data.CalendarBuilder;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.Month;
 
 
 import androidx.annotation.NonNull;
@@ -33,6 +32,7 @@ public class AgendaActivity extends AppCompatActivity {
     ListView ListPlanning;
     private AffPlanning AffPlanning;
     CellHeure[] cellHeures;
+    CellHeure[] cellHeures2;
     Calendar calendar = null;
 
     @Override
@@ -40,14 +40,13 @@ public class AgendaActivity extends AppCompatActivity {
         context = this;
         intent = getIntent();
 
-
-
-        String ip = "okok";
         AssetManager am =context.getAssets();
         InputStream is = null;
         try {
-            is = am.open("ADECal.ics");
-            ip = "iiiii";
+            //is = am.open("L3Info.ics");
+            is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/Agendias/L3Info.ics");
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,39 +64,29 @@ public class AgendaActivity extends AppCompatActivity {
 
 
             PropertyList plist = calendar.getProperties();
-            String sytemo=calendar.getComponents().get(2).toString();
+            String sytemo = calendar.getComponents().get(2).toString();
             //Objectif trier les date d'apparition des cours dans l'ordre croissant
-            String [] DateTrier ;
+            String[] DateTrier;
             //Taille du Calendrier
             int TailleCalendrier = calendar.getComponents().size();
             //Parcours de tous les cours du Calendrier avoir le nombre de Jour a modifier
-            for(int i = 0;i<TailleCalendrier;i++){
-                String Cour=calendar.getComponents().get(i).toString();
+            for (int i = 0; i < TailleCalendrier; i++) {
+                String Cour = calendar.getComponents().get(i).toString();
 
             }
-            String ListeCours =  "";
+            String ListeCours = "";
 
             String[] lesMots = sytemo.split(System.getProperty("line.separator"));
 
-            String Debut = motSeparateur(lesMots[2],":");
-            String Fin =motSeparateur(lesMots[3],":");
+            String Debut = motSeparateur(lesMots[2], ":");
+            String Fin = motSeparateur(lesMots[3], ":");
             String[] ListDebut = jouretHeure(Debut);
             String Anne = ListDebut[0];
             String Mois = ListDebut[1];
             String Jour = ListDebut[2];
             String Heure = ListDebut[3];
             String Minute = ListDebut[4];
-
-
-
-            System.out.println(Jour+" "+Mois+" "+Anne+" A "+Heure+":"+Minute);
-
-
-
-
         }
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
         calendarView = findViewById(R.id.calendarView);
@@ -108,7 +97,8 @@ public class AgendaActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 month+=1;
                 boolean Parcours = false;
-                cellHeures = new CellHeure[24];
+                cellHeures = new CellHeure[17];
+                cellHeures2 = new CellHeure[17];
                 int NbreCoursJour = 0;
                 if (calendar != null) {
                     //Taille du Calendrier
@@ -124,7 +114,7 @@ public class AgendaActivity extends AppCompatActivity {
                         String Jour = ListDebut[2];
                         String Mois = ListDebut[1];
 
-                        //Si l'utilasteur a appuyer sur un jour ou note le nombre de cour corespondant a ce Jour
+                        //Si l'utilisateur a appuyer sur un jour ou note le nombre de cour corespondant a ce Jour
                         if (Integer.parseInt(Jour) == dayOfMonth && Integer.parseInt(Mois) == month) {
                             NbreCoursJour++;
                         }
@@ -147,10 +137,16 @@ public class AgendaActivity extends AppCompatActivity {
                             CompteurJour++;
                         }
                     }
+
+                    //Cree l'agenda du jour a parti de la premiere heure de cours
+
                     for (int j=0;j<cellHeures.length;j++){
-                        cellHeures[j]= new CellHeure(j,"Rien",j+" h :","","","#F5F5F5");
+                        int hJ = 7+j;
+                        cellHeures[j]= new CellHeure(hJ,"",hJ+" h :"," ","","","#F5F5F5", false);
+
                     }
                     CompteurJour=0;
+
                     for (int i=0;i<NbreCoursJour;i++) {
                         String Debut = motSeparateur(ListeCourJour[i][2], ":");
                         String Fin = motSeparateur(ListeCourJour[i][3], ":");
@@ -164,25 +160,49 @@ public class AgendaActivity extends AppCompatActivity {
                         String MinuteD = ListDebut[4];
                         String HeureF = ListFin[3];
                         String MinuteF = ListFin[4];
+
+                        //Convertir l'heure des cours en entier D = Début et F = Fin des cours
+                        int HeureChoisiD = Integer.parseInt(HeureD)+4;
+                        int HeureChoisiF = Integer.parseInt(HeureF)+4;
+                        int NbreHeure = HeureChoisiD-HeureChoisiF;
+
+                        //Postion dans la listView qui sera modifier grace a l'heure choisi on soustrait 5
+                        //On soustrait 5 car on commence l'affichage a partir de 6 heures
+                        int positionListViewD = HeureChoisiD - 7;
+                        int positionListViewF = HeureChoisiF - 7;
+                        //Affichage de la premiere Heure de cours
+                        cellHeures[positionListViewD]= new CellHeure(positionListViewD,NomDeCours,HeureChoisiD+"h"+MinuteD+" :"," ",nomProf(Info),Salle,colorCours(NomDeCours,Info), false);
+                        System.out.println(positionListViewF);
+                        cellHeures[positionListViewF-1]= new CellHeure(positionListViewF,NomDeCours,HeureChoisiF+"h"+MinuteF+" :"," ",nomProf(Info),Salle,colorCours(NomDeCours,Info), true);
+
+                        //Affichage des Heures du debut du cours et de la fin de celle ci//
+
+                        /////AFFECTATION HORRAIRE AVEC +4 VUE LE DECALAGE HORAIRE/////
+                        /*
                         int HeureDChange = Integer.parseInt(HeureD)+4;
                         int HeureFChange = Integer.parseInt(HeureF)+4;
-                        cellHeures[HeureDChange]= new CellHeure(HeureDChange,NomDeCours,HeureDChange+"h"+MinuteD+" :",nomProf(Info),Salle,colorCours(NomDeCours,Info));
+                        /////// Affichage du Debut de l'heure de cours trouver /////
+                        cellHeures[HeureDChange]= new CellHeure(HeureDChange,NomDeCours,HeureDChange+"h"+MinuteD+" :"," ",nomProf(Info),Salle,colorCours(NomDeCours,Info), false);
                         int NbreHeure = HeureFChange-HeureDChange;
-                        System.out.println(HeureFChange);
+
                         for(int j=HeureDChange+1;j<HeureDChange+NbreHeure;j++){
-                            System.out.println(j+" o");
+
+                            int heurefinaux = j+1;
                             if((HeureDChange+NbreHeure)-1==j){
-                                cellHeures[j]= new CellHeure(j,"",j+"h"+MinuteF+":"," ","" ,colorCours(NomDeCours,Info));
+
+                                cellHeures[j]= new CellHeure(j,"",j+"h 00:",heurefinaux+"h"+MinuteF," ","" ,colorCours(NomDeCours,Info), true);
                             }
                             else {
-                                cellHeures[j]= new CellHeure(j,"",j+"h:"," ","" ,colorCours(NomDeCours,Info));
+                                cellHeures[j]= new CellHeure(j,"",j+"h:o",heurefinaux+"h"+MinuteF," ","" ,colorCours(NomDeCours,Info), true);
                             }
                         }
 
+                         */
+
                     }
-
-
                 }
+
+
                 AffPlanning = new AffPlanning(context,cellHeures);
                 ListPlanning.setAdapter(AffPlanning);
             }

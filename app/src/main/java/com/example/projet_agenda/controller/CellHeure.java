@@ -4,32 +4,37 @@ package com.example.projet_agenda.controller;
 public class CellHeure {
     //Les Variables a stocker dans une cellule
 
-    private String Heure ;
+    private String HeureD ;
+    private String HeureF ;
     private String Activity;
     private String NomProf ;
     private String SalledeCour;
     private int id;
     private int NbreCelle ;
     private String Color;
+    private boolean Espacement;
 
 
     //Constructeur de ma CellHeure
-    public CellHeure(int id,String Activity,String Heure,String NomProf,String SalleDeCour,String Color){
+
+    public CellHeure(int id, String Activity, String HeureD,String HeureF, String NomProf, String SalleDeCour, String Color, boolean Espacement){
         this.id = id;
         this.Activity = Activity;
-        this.Heure = Heure;
+        this.HeureD = HeureD;
+        this.HeureF = HeureF;
         this.NomProf =NomProf;
         this.SalledeCour =SalleDeCour;
         this.Color =Color;
+        this.Espacement = Espacement;
     }
 
 
     public String getHeure() {
-        return Heure;
+        return HeureD;
     }
 
     public void setHeure(String heure) {
-        Heure = heure;
+        HeureD = heure;
     }
 
     public int getId() {
@@ -78,5 +83,21 @@ public class CellHeure {
 
     public void setColor(String color) {
         Color = color;
+    }
+
+    public boolean isEspacement() {
+        return Espacement;
+    }
+
+    public void setEspacement(boolean espacement) {
+        Espacement = espacement;
+    }
+
+    public String getHeureF() {
+        return HeureF;
+    }
+
+    public void setHeureF(String heureF) {
+        HeureF = heureF;
     }
 }

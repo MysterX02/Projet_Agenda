@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -35,13 +36,29 @@ public class AffPlanning extends ArrayAdapter<CellHeure> {
         TextView activity = cellView.findViewById(R.id.activityTv);
         TextView salle = cellView.findViewById(R.id.salleTv);
         TextView nomProf = cellView.findViewById(R.id.nomProfTv);
-        LinearLayout ly = cellView.findViewById(R.id.back);
+        LinearLayout ly = cellView.findViewById(R.id.Ly);
+        TextView Tvfin = cellView.findViewById(R.id.TvFin);
+
+        TextView heureFinaux = cellView.findViewById(R.id.heurefinTv);
+
         CellHeure s = getItem(position);
         heure.setText(s.getHeure());
         activity.setText(s.getActivity());
         salle.setText(s.getSalledeCour());
         nomProf.setText(s.getNomProf());
         ly.setBackgroundColor(Color.parseColor(s.getColor()));
+        if (s.isEspacement() != true){
+            Tvfin.setVisibility(View.VISIBLE);
+            int heureF = position+8;
+            heureFinaux.setText(""+heureF+"h00");
+            Tvfin.setBackgroundColor(Color.parseColor(s.getColor()));
+
+        }else{
+            Tvfin.setBackgroundColor(Color.parseColor("#F5F5F5"));
+            heureFinaux.setText(s.getHeureF());
+        }
+
+
 
         return cellView;
     }
