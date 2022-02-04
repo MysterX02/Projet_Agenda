@@ -57,6 +57,9 @@ public class AffPlanning extends ArrayAdapter<CellHeure> {
             Tvfin.setBackgroundColor(Color.parseColor("#F5F5F5"));
             heureFinaux.setText(s.getHeureF());
         }
+        if(position == 5){
+
+        }
 
 
 

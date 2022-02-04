@@ -19,12 +19,15 @@
             android:id="@+id/heureTv"
             android:layout_width="120sp"
             android:layout_height="30sp"
+            android:fontFamily="@font/kanit"
             android:text="Heure : "
             android:textAlignment="center" />
+
         <TextView
             android:id="@+id/salleTv"
             android:layout_width="120sp"
             android:layout_height="40sp"
+            android:fontFamily="@font/kanit"
             android:text="Salle de Cours : "
             android:textAlignment="center" />
         <TextView
@@ -40,10 +43,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/activityTv"
             android:layout_width="match_parent"
             android:layout_height="50sp"
+            android:fontFamily="@font/kanit"
             android:text="Cours"
             android:textAlignment="center" />
 
@@ -51,8 +56,9 @@
             android:id="@+id/nomProfTv"
             android:layout_width="match_parent"
             android:layout_height="50sp"
-            android:textAlignment="center"
-            android:text="Nom du Professeur : " />
+            android:fontFamily="@font/kanit"
+            android:text="Nom du Professeur : "
+            android:textAlignment="center" />
 
     </LinearLayout>
     </LinearLayout>

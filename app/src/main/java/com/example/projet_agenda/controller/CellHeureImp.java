@@ -1,5 +1,7 @@
 package com.example.projet_agenda.controller;
 
+import com.example.projet_agenda.R;
+
 import net.fortuna.ical4j.model.Calendar;
 
 public class CellHeureImp {
@@ -55,7 +57,7 @@ public class CellHeureImp {
 
         for (int j=0;j<CellHeure.length;j++){
             int hJ = 7+j;
-            CellHeure[j]= new CellHeure(hJ,"",hJ+" h :"," ","","","#F5F5F5", false);
+            CellHeure[j]= new CellHeure(hJ,"",hJ+" h :"," ","","", "#FFFFFF", false);
 
         }
         CompteurJour=0;

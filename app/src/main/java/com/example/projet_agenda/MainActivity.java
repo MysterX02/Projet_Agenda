@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.webkit.URLUtil;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -20,12 +21,15 @@ import javax.xml.transform.dom.DOMLocator;
 
 public class MainActivity extends AppCompatActivity {
     Context context;
+
     String url1 = "https://emploidutemps.univ-reunion.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=3300&projectId=3&calType=ical&lastDate=2022-04-26&firstDate=2022-01-26&#displayConfigId";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main1);
         context=this;
+
     }
     public void clickAgenda(View p){
         //Telechargement d'un fichier activer
